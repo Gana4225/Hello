@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Room</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .chat-box {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 500px;
+            margin: auto;
+        }
+        .message {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 0;
+        }
+        .username {
+            font-weight: bold;
+        }
+        .timestamp {
+            color: #888;
+            font-size: 12px;
+        }
+        .reply {
+            color: #007bff;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .reply-to {
+            color: #555;
+            font-size: 12px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-box">
+        {% for message in messages %}
+        <div class="message">
+            <span class="username">{{ message.username }}</span>:
+            <span>{{ message.message }}</span>
+            {% if message.tagged_message %}
+            <div class="reply-to">Reply to: {{ message.tagged_message.message }}</div>
+            {% endif %}
+            <div class="timestamp">{{ message.timestamp }}</div>
+            <span class="reply" onclick="tagMessage('{{ message.id }}', '{{ message.message|escapejs }}')">Reply</span>
+        </div>
+        {% endfor %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" id="tagged_message_id" name="tagged_message_id">
+            <input type="text" name="message" placeholder="Type your message...">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        function tagMessage(id, message) {
+            document.getElementById('tagged_message_id').value = id;
+            alert('Replying to: ' + message);
+        }
+    </script>
+</body>
+</html>

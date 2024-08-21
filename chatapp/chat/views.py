@@ -15,3 +15,9 @@ def chat_view(request):
 
     messages = ChatMessage.objects.all().order_by('-timestamp')
     return render(request, 'chat/chat.html', {'messages': messages})
+
+
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Welcome to the Chat App!")

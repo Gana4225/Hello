@@ -22,7 +22,7 @@ SECRET_KEY = 'django-insecure-7oe=q7g7z!s+9h5=%4$pl-lnf4!leyxxm0^^_u$njigoxcql9(
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://hello-i9ca.onrender.com']
 
 
 # Application definition
